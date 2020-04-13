@@ -1,4 +1,4 @@
-This is SOURCE CODE version 1.0.0
+Source code here!
 ====================================
 
 "Data Structures and Algorithms in Python"
