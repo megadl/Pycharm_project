@@ -24,7 +24,8 @@ from .exceptions import Empty
 
 
 class LinkedDeque(_DoublyLinkedBase):  # note the use of inheritance
-    """Double-ended queue implementation based on a doubly linked list."""
+    """Double-ended queue implementation based on a doubly linked list.
+    基于双向链表，注意与基于数组的序列相比较，比较两者效率"""
 
     def first(self):
         """Return (but do not remove) the element at the front of the deque.

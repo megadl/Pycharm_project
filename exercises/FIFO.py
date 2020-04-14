@@ -1,4 +1,4 @@
-from ch06.exceptions import Empty
+from .exceptions import Empty
 
 
 class ArrayStack:
