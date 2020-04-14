@@ -55,7 +55,7 @@ class ArrayQueue:
 
         Raise Empty exception if the queue is empty.
         """
-        if self.is_empty():
+        if self.is_empty():  # 处理下溢
             raise Empty('Queue is empty')
         answer = self._data[self._front]  # 为元素存储一个引用。
         self._data[self._front] = None  # help garbage collection
@@ -65,7 +65,7 @@ class ArrayQueue:
 
     def enqueue(self, e):
         """Add an element to the back of queue."""
-        if self._size == len(self._data):
+        if self._size == len(self._data):  # 动态扩展基于数组的队列，以此来处理上溢
             self._resize(2 * len(self.data))  # double the array size
         # 基于数组的序列新增一个元素必须包含以下三种操作1索引，2元素引用，3增量。
         avail = (self._front + self._size) % len(self._data)  # 1计算新元素的索引
