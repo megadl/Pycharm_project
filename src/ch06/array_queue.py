@@ -67,7 +67,7 @@ class ArrayQueue:
         """Add an element to the back of queue."""
         if self._size == len(self._data):
             self._resize(2 * len(self.data))  # double the array size
-        # 基于数组的序列新增一个元素必须包含以下三种操作1，2，3。
+        # 基于数组的序列新增一个元素必须包含以下三种操作1索引，2元素引用，3增量。
         avail = (self._front + self._size) % len(self._data)  # 1计算新元素的索引
         self._data[avail] = e  # 2在数组中为元素e存储一个引用
         self._size += 1  # 3
