@@ -31,9 +31,9 @@ class CircularQueue:
         """Lightweight, nonpublic class for storing a singly linked node."""
         __slots__ = '_element', '_next'  # streamline memory usage
 
-        def __init__(self, element, next):
+        def __init__(self, element, nxt):
             self._element = element
-            self._next = next
+            self._next = nxt
 
     # end of _Node class
     # ---------------------------------------------------------------------------------
