@@ -66,7 +66,7 @@ class PersonList(_DoubleLinkedBase):
         cursor = self.first()
         while cursor is not None:
             yield cursor.element()
-            curosr = self.after(curosr)
+            cursor = self.after(cursor)
 
     # ---------------------------------mutators-------------------------------------------------------------------------
     # override inherited version to return Position, rather than Node
@@ -103,5 +103,7 @@ class PersonList(_DoubleLinkedBase):
         Return the element formerly at Position P"""
         original = self._validate(p)
         old_value = original._element
-        original._elelment = e
+        original._element = e
         return old_value
+
+

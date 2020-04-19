@@ -35,7 +35,7 @@ class _DoubleLinkedBase:
         self._size += 1
         return newest
 
-    def _del_node(self, node):
+    def _delete_node(self, node):
         """delete nonsentinel node(非哨兵节点) from the list and return its element."""
         predecessor = node._prev
         successor = node._next
