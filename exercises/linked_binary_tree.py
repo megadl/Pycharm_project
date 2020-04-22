@@ -1,5 +1,7 @@
 from abc import ABC
 
+from Pycharm_project.exercises.FIFO_linked import LinkedQueue
+
 
 class Tree:
     """Abstract tree class representing tree structure"""
@@ -57,7 +59,7 @@ class Tree:
             return 0
         return 1 + self.depth(self.parent(p))  # 递归计算父节点的深度，直到根节点。因为已知根节点的深度为0
     
-    def _height1(self):  # 即所有节点的孩子节点的深度最大值， 时间复杂度O(n^2)
+    def _height1(self):  # 即所有节点的孩子节点的深度最大值， 时间复杂度O(n^2) 
         """Return the height of tree"""
         return max(self.depth(p) for p in self.positions() if self.is_leaf(p))
     
@@ -72,6 +74,56 @@ class Tree:
         if p is None:
             p = self.root()
         return self._height2(p)
+    
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@多种遍历算法的实现@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    def __iter__(self):
+        """Generate an iteration of the tree's elements."""
+        for p in self.positions():
+            yield p.element
+
+    def positions(self):
+        """Generate an iteration of the tree's position"""
+        return self.preorder()
+
+    # --------------先序遍历的实现-----------------------------------------------------------
+    def preorder(self):
+        """Generate a preorder iteration of position in the tree"""
+        if not self.is_empty():
+            for p in self._subtree_preorder(self.root()):  # start recursion，从整个树的root开始，递归访问子树的根
+                yield p
+
+    def _subtree_preorder(self, p):
+        """Generate a preorder iteration of positions in subtree rooted at p"""
+        yield p  # 先访问子树的根
+        for c in self.children(p):  # 遍历子树的children
+            for other in self._subtree_preorder(c):  # 开始递归遍历子树根
+                yield other
+
+    # ------------------后序遍历的实现-------------------------------------------------------------
+    def postorder(self):
+        """Generate a postorder iteration of position in the tree"""
+        if not self.is_empty():
+            for p in self._subtree_postorder(self.root()):
+                yield p
+
+    def _subtree_postorder(self, p):
+        """Generate an iteration of position in the subtree rooted at p"""
+        for c in self.children(p):  # 在子树P中遍历
+            for other in self._subtree_postorder(c):
+                yield other
+        yield p  # 子树P遍历结束后,再访问子树的根p，即所谓后序遍历
+
+    # --------------------------------广度优先遍历的实现----------------------------------------------------------------
+    def breadthfirst(self):
+        """Generate a breadth-first iteration of position in the tree"""
+        if not self.is_empty():
+            fringe = LinkedQueue()
+            fringe.enqueue(self.root())
+            while not fringe.is_empty():
+                p = fringe.dequeue()
+                yield p
+                for c in self.children(p):
+                    fringe.enqueue(c)
 
 
 class BinaryTree(Tree, ABC):
@@ -256,9 +308,6 @@ class LinkedBinaryTree(BinaryTree):
             node._right = t2._root
             t2._root = None  # set t1 instance to None
             t2._size = 0
-        
-        
-    
-    
-        
-    
+
+
+            
