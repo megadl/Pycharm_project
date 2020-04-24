@@ -223,7 +223,7 @@ class LinkedBinaryTree(BinaryTree):
         return self._make_position(pnode)
     
     def num_children(self, p):
-        pnode = self._validate(p)  # return associated node if p is valid
+        pnode = self  # return associated node if p is valid
         count = 0
         if pnode._left is not None:  # pnode is a validated Position,
             count += 1
@@ -251,7 +251,7 @@ class LinkedBinaryTree(BinaryTree):
         """Create a new right child for Position p, storing e.
         Return the Position of new node.
         Raise ValueError if Position p is invalid or p already has a right child"""
-        node = self._validate(p)
+        node = self
         if node._right is not None:
             raise ValueError('right child of Position p already exists')
         self._size += 1
@@ -269,7 +269,7 @@ class LinkedBinaryTree(BinaryTree):
         """Delete the node at Position p, and replace it with its child, if any.
         Return the element stored in Position p.
         raise ValueError if Position p is invalid or p has two children"""
-        node = self._validate(p)  # return associated node if Position p is valid
+        node = self  # return associated node if Position p is valid
         old = node._element
         if self.num_children(p) == 2:
             raise ValueError('p has two children')
