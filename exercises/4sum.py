@@ -1,45 +1,34 @@
 class Solution:
     def fourSum(self, nums, target):
-        n = len(nums)
+        def findNsum(l, r, target, N, result, results):
+            if r - l + 1 < N or N < 2 or target < nums[l] * N or target > nums[r] * N:  # early termination
+                return
+            if N == 2:  # two pointers solve sorted 2-sum problem
+                while l < r:
+                    s = nums[l] + nums[r]
+                    if s == target:
+                        results.append(result + [nums[l], nums[r]])
+                        l += 1
+                        while l < r and nums[l] == nums[l - 1]:
+                            l += 1
+                    elif s < target:
+                        l += 1
+                    else:
+                        r -= 1
+            else:  # recursively reduce N
+                for i in range(l, r + 1):
+                    if i == l or (i > l and nums[i - 1] != nums[i]):
+                        print(f'Processing find{N-1}sum----result is now {result}---results is now {results}')
+                        findNsum(i + 1, r, target - nums[i], N - 1, result + [nums[i]], results)
+
         nums.sort()
-        ans = list()
-        
-        # 枚举 a
-        for first in range(n):
-            # 需要和上一次枚举的数不相同
-            # first = 0 or nums[first] != nums[first-1]的'非'就是first > 0 and nums[first] == nums[first-1]
-            if first > 0 and nums[first] == nums[first - 1]:
-                continue
-            # c 对应的指针初始指向数组的最右端
-            if n >= 4 and (nums[first] + nums[first + 1] + nums[first + 2] + nums[first + 3] > target or nums[n - 1] + nums[n -
-                                                                                                                2] + \
-                    nums[n - 3] + nums[n - 4] < target):
-                break
-            target1 = target - nums[first]
-            # 枚举 b
-            for second in range(first + 1, n):
-                # 需要和上一次枚举的数不相同
-                if second > first + 1 and nums[second] == nums[second - 1]:
-                    continue
-                forth = n - 1
-                for third in range(second + 1, n):
-                    if third > second + 1 and nums[third] == nums[third - 1]:
-                        continue
-                    
-                    while third < forth and nums[second] + nums[third] + nums[forth] > target1:
-                        forth -= 1
-                    
-                    if third == forth:
-                        break
-                    if nums[second] + nums[third] + nums[forth] == target1:
-                        ans.append([nums[first], nums[second], nums[third], nums[forth]])
-        
-        return ans
+        results = []
+        findNsum(0, len(nums) - 1, target, 4, [], results)
+        return results
 
 
 if __name__ == '__main__':
     solution = Solution()
     nums = [-3, -2, -1, 0, 0, 1, 2, 3]
-    nums1 = [0]
     target = 0
-    print(solution.fourSum(nums1, target))
+    print(solution.fourSum(nums, target))
