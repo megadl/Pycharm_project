@@ -193,3 +193,4 @@ class HeapPriorityQueue(PriorityQueueBase):
         self._downheap(0)  # 堆向下冒泡，重新排序。
         return (item._key, item._value)
 
+list.reverse()
