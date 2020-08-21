@@ -1,3 +1,6 @@
+import time
+
+
 class TreeNode:
     def __init__(self, val, left=None, right=None):
         self.val = val
@@ -34,16 +37,22 @@ def drawtree(root):
     def draw(node, x, y, dx):
         if node:
             t.goto(x, y)
+            # time.sleep(2)
             jumpto(x, y - 20)
+            # time.sleep(2)
             t.write(node.val, align='center', font=('Arial', 12, 'normal'))
+            # time.sleep(2)
             draw(node.left, x - dx, y - 60, dx / 2)
+            # time.sleep(2)
             jumpto(x, y - 20)
+            # time.sleep(2)
             draw(node.right, x + dx, y - 60, dx / 2)
+            # time.sleep(2)
 
     import turtle
     t = turtle.Turtle()
-    t.speed(0);
-    turtle.delay(0)
+    t.speed(3);
+    turtle.delay(30)
     h = height(root)
     jumpto(0, 30 * h)
     draw(root, 0, 30 * h, 40 * h)
